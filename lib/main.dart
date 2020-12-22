@@ -8,6 +8,7 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: Colors.purple,
           fontFamily: 'Quicksand',
+          // errorColor: Colors.red,
           textTheme: ThemeData.light().textTheme.copyWith(
               headline6: TextStyle(
                   fontFamily: 'OpenSans',
@@ -78,6 +80,14 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
+  void _deletTransaction(String id) {
+    setState(() {
+      _userTransaction.removeWhere((element) {
+        return element.id == id;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Chart(_recentTransactions),
-              TransactionList(_userTransaction)
+              TransactionList(_userTransaction, _deletTransaction)
             ],
           )),
         ),
